@@ -17,11 +17,11 @@ Your files should look like this:
 > ![image](https://github.com/aisu-programming/VP9-Video-Decoder/assets/66176726/abcabbe9-7e91-431c-b9f1-391166a4470c)
 > ![image](https://github.com/aisu-programming/VP9-Video-Decoder/assets/66176726/2d705469-7d9e-4756-9d37-9c9f77b767ea)
 
-If the JSON files are not well formatted:
+If the raw camera data JSON files are not well formatted:
 1. Edit the DATE variable to target date in [src/1_format_jsondata.py](https://github.com/aisu-programming/VP9-Video-Decoder/blob/master/1_format_jsondata.py#L1).
 2. Execute it: `python 1_format_jsondata.py`
 
-Next, for groups txt file, change it to JSON format:
+Next, if the groups file is a txt file, change it to JSON format:
 1. Edit the DATE variable to target date in [src/2_convert_groups_txt.py](https://github.com/aisu-programming/VP9-Video-Decoder/blob/master/2_convert_groups_txt.py#L1).
 2. Edit the import source and the DATE variable to target date in [src/3_extract_groups_py.py](https://github.com/aisu-programming/VP9-Video-Decoder/blob/master/3_extract_groups_py.py#L1:L2).
 3. Execute them: `python 2_convert_groups_txt.py` `python 3_extract_groups_py.py`
@@ -29,14 +29,14 @@ Next, for groups txt file, change it to JSON format:
 ## Usage
 The main part of the codes are in [src/App.tsx](https://github.com/aisu-programming/VP9-Video-Decoder/blob/master/src/App.tsx).
 
-To change the target decoding date, simply edit the date at [line 396](https://github.com/aisu-programming/VP9-Video-Decoder/blob/master/src/App.tsx#L396).
+To change the target decoding date in `src/App.tsx`, simply edit the date at [line 396](https://github.com/aisu-programming/VP9-Video-Decoder/blob/master/src/App.tsx#L396).
 
 To change the function between "Group" and "Traversal", edit the comment at [line 397~400](https://github.com/aisu-programming/VP9-Video-Decoder/blob/master/src/App.tsx#L397:400).
 
-Run the Back-End App, then run the Front-End App:
+Run the Back-End App, then run the Front-End App in a separate terminal. Note that to run the python backend.py, you need an environment that has all the packages in `requirement.txt` installed:
 1. `python backend.py`
 2. `npm start`
-3. You should see logs in both the console of the browser and the Back-End App.
+3. A webpage should pop up on your browser. You should see logs in both the console of the browser page and the Back-End python script terminal.
 
 ## Verification (Only for "Group" function)
 To check that the total of decoded files is correct:

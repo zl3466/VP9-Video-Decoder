@@ -78,13 +78,14 @@ function postSuccessfullyDecodedImageGroups(videoFrame: VideoFrame, date: string
     }
 }
 
-function createVideoDecoderGroups(date: string, camera: string, car: string, utimeStart: number, utimeEnd: number): VideoDecoder {
+function createVideoDecoderGroups(date: string, camera: string, car: string, utimeStart: number, utimeEnd: number, scene_idx: number): VideoDecoder {
     return new VideoDecoder({
         output: (videoFrame: VideoFrame) => {
             // Filter and send only the images we want to the Back-End
             const utime = videoFrame.timestamp;
             if (utimeStart <= utime && utime <= utimeEnd) {
-                const scene: string = `${utimeStart}_${utimeEnd}`
+                // const scene: string = `${utimeStart}_${utimeEnd}`
+                const scene: string = `scene_${scene_idx}`
                 postSuccessfullyDecodedImageGroups(videoFrame, date, scene, camera, car, utime);
             }
             videoFrame.close();
@@ -152,6 +153,7 @@ async function mainGroups(date: string, targetsJson: Array<Record<string, any>>)
 
     for (let targetIndex = 0; targetIndex < targetsJson.length; targetIndex++) {
         const target = targetsJson[targetIndex];
+        const scene_idx = Number(target["scene_idx"])
         const utimeStart = Number(target["utime_start"]);
         const utimeEnd = Number(target["utime_end"]);
         console.log(`Decoding targetsJson: ${targetIndex+1}/${targetsJson.length}`, target);
@@ -178,7 +180,7 @@ async function mainGroups(date: string, targetsJson: Array<Record<string, any>>)
                 // Create new VideoDecoder for new camera
                 const VideoDecoderId = data.camera;
                 if (!(VideoDecoderId in VideoDecoders)) {
-                    var newVideoDecoder = createVideoDecoderGroups(date, data.camera, car, utimeStart, utimeEnd);
+                    var newVideoDecoder = createVideoDecoderGroups(date, data.camera, car, utimeStart, utimeEnd, scene_idx);
                     newVideoDecoder = configureDecoder(newVideoDecoder, {
                         codec: "vp09.00.10.08",
                         optimizeForLatency: true,
@@ -392,12 +394,13 @@ async function mainTraversals(date: string, targetsJson: Record<string, Record<s
 
 
 // --------------- Execution ------------------------- //
+// 19 24 25
 
-const date = "2023_09_22"
-// const groupsJson: Array<any> = require(`./encoded_data/_${date}/_${date}_groups.json`);
-// mainGroups(date, groupsJson);
-const traversalsJson: Record<string, Record<string, any>> = require(`./encoded_data/_${date}/_${date}_traversal.json`);
-mainTraversals(date, traversalsJson);
+const date = "2024_03_08"
+const groupsJson: Array<any> = require(`./encoded_data/_${date}/_${date}_groups.json`);
+mainGroups(date, groupsJson);
+// const traversalsJson: Record<string, Record<string, any>> = require(`./encoded_data/_${date}/_${date}_traversal.json`);
+// mainTraversals(date, traversalsJson);
 
 function App() {
     return (

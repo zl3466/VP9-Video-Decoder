@@ -102,7 +102,8 @@ def group_upload_successfully_decoded_image():
     car          = data["car"]
     utime        = data["utime"]
     
-    save_dir = f"{date}/{scene}/{camera}/{car}"
+    save_dir = f"{date}_agent/{scene}/{camera}/{car}"
+    # save_dir = f"{date}/{scene}/{car}/{camera}"
     if save_dir not in SAVE_FOLDER_LIST:
         os.makedirs(f"decoded_images/group/{save_dir}", exist_ok=True)
         SAVE_FOLDER_LIST.append(save_dir)
@@ -123,7 +124,8 @@ def group_create_black_image():
     width  = data["width"]
     height = data["height"]
     
-    save_dir = f"{date}/{scene}/{camera}/{car}"
+    save_dir = f"{date}_agent/{scene}/{camera}/{car}"
+    # save_dir = f"{date}_agent/{scene}/{car}/{camera}"
     if save_dir not in SAVE_FOLDER_LIST:
         os.makedirs(f"decoded_images/group/{save_dir}", exist_ok=True)
         SAVE_FOLDER_LIST.append(save_dir)

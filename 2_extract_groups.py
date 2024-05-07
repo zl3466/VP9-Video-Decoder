@@ -7,7 +7,7 @@ import shutil
 json_list = []
 root_dir = "C:/Users/ROG_ZL/Documents/github/mmobility"
 date = "2024_03_08"
-agent_json_dir = f"{root_dir}/multi_groups/{date}/{date}_multi.json"
+agent_json_dir = f"{root_dir}/agent_groups/{date}/{date}_agent.json"
 scene_dict = json.load(open(agent_json_dir))
 scene_list = scene_dict.keys()
 
